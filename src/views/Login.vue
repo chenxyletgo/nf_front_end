@@ -4,15 +4,15 @@ import { ElMessage } from 'element-plus'
 import { urlEnv } from '../conf'
 import type { FormInstance } from 'element-plus'
 // data
-let formRef = ref<FormInstance>() // 获取DOM元素 form
-let checkCodeImgUrl = ref(urlEnv.checkCodeImgUrl)
-let formData = reactive({
+const formRef = ref<FormInstance>() // 获取DOM元素 form
+const checkCodeImgUrl = ref(urlEnv.checkCodeImgUrl)
+const formData = reactive({
     email: '',
     password: '',
     checkCode: ''
 })
 // 表单参数约束
-let rules = reactive({
+const rules = reactive({
     email: [
         { 
             validator: (rule: any, value: any, callback: any) => {
@@ -69,7 +69,7 @@ function onSubmit(formEl: FormInstance | undefined) {
     formEl.validate((valid) => {
         if (valid) {
             // 执行到这，说明数据格式正确，
-            // 将formData数据通过axios发送到后端
+            // TODO 将formData数据通过axios发送到后端
         } else {
             // 执行到这，说明数据格式不正确，需要提醒用户
             ElMessage.error('输入不正确')
@@ -86,56 +86,65 @@ function resetForm(formEl: FormInstance | undefined) {
 
 <template>
     <div class="login-body">
-        <div class="login-form">
-            <h3>登录</h3>
-            <el-form :model="formData" ref="formRef" :rules="rules" status-icon>
-                <el-form-item prop="email">
-                    <el-input 
-                        v-model="formData.email"
-                        placeholder="邮箱"
-                        autocomplete="off"
-                        clearable 
-                    />
-                </el-form-item>
-                <el-form-item prop="password">
-                    <el-input
-                        v-model="formData.password"
-                        type="password"
-                        placeholder="密码"
-                        autocomplete="off"
-                        status-icon
-                        show-password
-                    />
-                </el-form-item>
-                <el-form-item prop="checkCode">
-                    <div class="checkCode-div">
-                        <el-input
-                            v-model="formData.checkCode"
-                            placeholder="验证码"
+        <div class="postion-div">
+            <div class="login-form">
+                <h3>登录</h3>
+                <el-form :model="formData" ref="formRef" :rules="rules" status-icon>
+                    <el-form-item prop="email">
+                        <el-input 
+                            v-model="formData.email"
+                            placeholder="邮箱"
                             autocomplete="off"
-                            clearable
+                            clearable 
                         />
-                    </div>
-                    <img
-                        class="checkCode-img"
-                        @click="refreshCheckCodeImg"
-                        :src="checkCodeImgUrl"
-                    />
-                </el-form-item>
-                <el-form-item>
-                    <el-button type="primary" @click="onSubmit(formRef)">登录</el-button>
-                    <el-button @click="resetForm(formRef)">清空</el-button>
-                </el-form-item>
-            </el-form>
+                    </el-form-item>
+                    <el-form-item prop="password">
+                        <el-input
+                            v-model="formData.password"
+                            type="password"
+                            placeholder="密码"
+                            autocomplete="off"
+                            status-icon
+                            show-password
+                        />
+                    </el-form-item>
+                    <el-form-item prop="checkCode">
+                        <div class="checkCode-div">
+                            <el-input
+                                v-model="formData.checkCode"
+                                placeholder="验证码"
+                                autocomplete="off"
+                                clearable
+                            />
+                        </div>
+                        <img
+                            class="checkCode-img"
+                            @click="refreshCheckCodeImg"
+                            :src="checkCodeImgUrl"
+                        />
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button type="primary" @click="onSubmit(formRef)">登录</el-button>
+                        <el-button @click="resetForm(formRef)">清空</el-button>
+                    </el-form-item>
+                </el-form>
+            </div>
         </div>
     </div>
 </template>
 
 <style scoped>
+.postion-div {
+    width: 400px;
+    margin: 0 auto;
+    margin-top: 120px;
+    border: 1px solid white;
+    background-color: white;
+    border-radius: 20px;
+}
 .login-form {
     width: 300px;
     margin: 0 auto;
-    margin-top: 120px;
     text-align: center;
 }
 .checkCode-div {

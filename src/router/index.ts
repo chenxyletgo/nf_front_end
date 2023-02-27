@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory} from 'vue-router'
+import Home from '../views/home/Home.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 
@@ -12,7 +13,7 @@ const router = createRouter({
         {
             name: '首页',
             path: '/index',
-            component: {}
+            component: Home
         },
         {
             name: '搜索',
@@ -22,12 +23,18 @@ const router = createRouter({
         {
             name: '登录',
             path: '/login',
-            component: Login
+            component: Login,
+            meta: {
+                keepAlive: false
+            }
         },
         {
             name: '注册',
             path: '/register',
-            component: Register
+            component: Register,
+            meta: {
+                keepAlive: true
+            }
         },
         {
             name: '用户',
@@ -64,6 +71,7 @@ router.beforeEach((to, from, next) => {
     } else {
         next()
     }
+    // TODO 拦截登录后不能访问登录和注册页面
 })
 
 export default router
