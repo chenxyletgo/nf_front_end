@@ -16,7 +16,11 @@ function handleSelect(key: string, keyPath: string[]) {
 }
 // 监听路由 Menu的聚焦根据路由而变化
 watch(route, (newVal, oldVal) => {
-    activeIndex.value = route.path
+    if (route.meta.father) {
+        activeIndex.value = route.meta.father as string
+    } else {
+        activeIndex.value = route.path
+    }
 })
 // 测试代码
 // function testFun() {
@@ -64,7 +68,7 @@ watch(route, (newVal, oldVal) => {
 
 <style scoped>
 .el-menu-demo {
-    padding-left: calc(50% - 600px);
+    padding-left: calc(50% - 580px);
 }
 .user-info {
     margin-left: 900px;

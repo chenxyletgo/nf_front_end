@@ -1,6 +1,8 @@
 <script setup lang='ts'>
 import { ref, reactive } from 'vue'
-let categories = reactive({
+import HomeLeft from './HomeLeft.vue'
+import HomeRight from './HomeRight.vue'
+let leftList = reactive({
     home: '推荐',
     douga: '动画',
     game: '游戏',
@@ -14,12 +16,13 @@ let categories = reactive({
     <div class="home-body">
         <div class="home-content">
             <div class="left">
+                <HomeLeft :list="leftList" />
             </div>
             <div class="content">
-                
+                <router-view></router-view>
             </div>
             <div class="right">
-
+                <HomeRight />
             </div>
         </div>
     </div>

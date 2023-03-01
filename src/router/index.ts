@@ -2,6 +2,7 @@ import { createRouter, createWebHistory} from 'vue-router'
 import Home from '../views/home/Home.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
+import HomeContent from '../views/home/HomeContent.vue'
 
 const router = createRouter({
     routes: [
@@ -13,7 +14,41 @@ const router = createRouter({
         {
             name: '首页',
             path: '/index',
-            component: Home
+            component: Home,
+            children: [
+                {
+                    name: '推荐',
+                    path: 'home',
+                    component: HomeContent,
+                    meta: {
+                        father: '/index'
+                    }
+                },
+                {
+                    name: '动画',
+                    path: 'douga',
+                    component: HomeContent,
+                    meta: {
+                        father: '/index'
+                    }
+                },
+                {
+                    name: '游戏',
+                    path: 'game',
+                    component: HomeContent,
+                    meta: {
+                        father: '/index'
+                    }
+                },
+                {
+                    name: '推荐',
+                    path: 'home',
+                    component: HomeContent,
+                    meta: {
+                        father: '/index'
+                    }
+                }
+            ]
         },
         {
             name: '搜索',
