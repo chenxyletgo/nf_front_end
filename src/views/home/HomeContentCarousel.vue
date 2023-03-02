@@ -1,5 +1,7 @@
 <script setup lang='ts'>
 import { ref, reactive, onMounted, onUnmounted, watch } from 'vue'
+import { carouselFun, timer, changeImg } from '../../utils/carouselFuns'
+// data
 let data = [
     {
         title: '标题一',
@@ -15,151 +17,17 @@ let data = [
         title: '标题三',
         url: 'https://',
         imgUrl: 'https://pic.3gbizhi.com/2019/0928/20190928012439343.jpg'
+    },
+    {
+        title: '标题四',
+        url: 'https://',
+        imgUrl: 'https://pic.3gbizhi.com/2019/0928/20190928012439343.jpg'
     }
 ]
-let curCarouselIndex = 0 // 当前位置
-let timer: number
-// 点击小圆点切换图片
+// DOM节点加载完成
 onMounted(() => {
-    test()
+    carouselFun()
 })
-interface DOMs {
-    list: HTMLElement,
-    titles: HTMLElement,
-    indicator: HTMLElement
-}
-/**
- * title 向下 向上 移动
- * @param cur 当前的位置
- * @param sufIndex carousel数组最后元素的下标
- * @param doms carousel的DOM元素
- * @param pre false表示向下，true表示向上
- */
-function titleNext(cur: number, sufIndex: number, doms: DOMs, pre: boolean) {
-    let temp = doms.titles.children
-    temp[cur].classList.remove('on') // 移除当前元素样式
-    if (pre) { // 向上
-        if (cur === 0) { // 到头部
-            temp[sufIndex].classList.add('on') // 给尾元素加样式
-        } else { // 非头部
-            temp[cur - 1].classList.add('on') // 给上一个元素加样式
-        }
-    } else { // 向下
-        if (cur === sufIndex) { // 到末尾
-            temp[0].classList.add('on') // 给头元素加样式
-        } else { // 非末尾
-            temp[cur + 1].classList.add('on') // 给下一个元素加样式
-        }
-    }
-
-
-}
-/**
- * indicator 向下 向上 移动
- * @param cur 当前的位置
- * @param sufIndex carousel数组最后元素的下标
- * @param doms carousel的DOM元素
- * @param pre false表示向下，true表示向上
- */
-function indicatorNext(cur: number, sufIndex: number, doms: DOMs, pre: boolean) {
-    let temp = doms.indicator.children
-    temp[cur].children[0].classList.remove('on') // 移除当前样式
-    temp[cur].children[0].classList.add('indicator-item')
-    if (pre) { // 向上
-        if (cur === 0) { // 到头部
-            temp[sufIndex].children[0].classList.remove('indicator-item') // 给尾元素加样式
-            temp[sufIndex].children[0].classList.add('on')
-        } else { // 非头部
-            temp[cur - 1].children[0].classList.remove('indicator-item') // 给上一个元素加样式
-            temp[cur - 1].children[0].classList.add('on')
-        }
-    } else { // 向下
-        if (cur === sufIndex) { // 到尾部
-            temp[0].children[0].classList.remove('indicator-item') // 给头元素加样式
-            temp[0].children[0].classList.add('on')
-        } else { // 非尾部
-            temp[cur + 1].children[0].classList.remove('indicator-item') // 给下一个元素加样式
-            temp[cur + 1].children[0].classList.add('on')
-        }
-    }
-}
-function test(){
-    let doms = getDoms() // 获取dom元素
-    let conf = carouselConf(doms) // 获取carousel信息
-    initCarousel(doms) // 初始化carousel
-    let count = 0
-    let sufIndex = doms.titles.children.length - 1
-    timer = setInterval(() => {
-        doms.list.style.left = '-' + (count + conf.imgWidth) + 'px' // 向左移动
-        titleNext(curCarouselIndex, sufIndex, doms, false)
-        indicatorNext(curCarouselIndex, sufIndex, doms, false)
-        count += conf.imgWidth
-        curCarouselIndex++
-        if (count === conf.imgWidth * conf.imgCount) {
-            doms.list.style.left = '0px'
-            curCarouselIndex = 0
-            count = 0
-        }
-    }, 2000)
-
-}
-
-function changeImg(index: number) {
-    if (index === curCarouselIndex) {
-        return
-    } else {
-        clearInterval(timer)
-        // let count = Math.abs(index - curCarouselIndex)
-        let count = index * 680
-        let doms = getDoms()
-        doms.list.style.left = '-' + (index * 680) + 'px'
-        doms.titles.children[curCarouselIndex].classList.remove('on')
-        doms.titles.children[index].classList.add('on')
-        doms.indicator.children[curCarouselIndex].children[0].classList.remove('on')
-        doms.indicator.children[curCarouselIndex].children[0].classList.add('indicator-item')
-        doms.indicator.children[index].children[0].classList.remove('indicator-item')
-        doms.indicator.children[index].children[0].classList.add('on')
-        curCarouselIndex = index
-        let sufIndex = doms.titles.children.length - 1
-        let conf = carouselConf(doms)
-        timer = setInterval(() => {
-            doms.list.style.left = '-' + (count + conf.imgWidth) + 'px' // 向左移动
-            titleNext(curCarouselIndex, sufIndex, doms, false)
-            indicatorNext(curCarouselIndex, sufIndex, doms, false)
-            count += conf.imgWidth
-            curCarouselIndex++
-            if (count === conf.imgWidth * conf.imgCount) {
-                doms.list.style.left = '0px'
-                curCarouselIndex = 0
-                count = 0
-            }
-        }, 2000)
-    }
-
-}
-
-// 获取dom元素
-function getDoms() {
-    return {
-        list: document.getElementsByClassName('carousel-list')[0] as HTMLElement,
-        titles: document.getElementsByClassName('titles')[0] as HTMLElement,
-        indicator: document.getElementsByClassName('indicator')[0] as HTMLElement
-    }
-}
-// 获取carouselConf信息
-function carouselConf(doms: DOMs) {
-    return {
-        imgCount: doms.titles.children.length,
-        imgWidth: doms.list.children[0].children[0].children[0].clientWidth
-    }
-}
-// 初始化carousel
-function initCarousel(doms: DOMs) {
-    doms.list.style.left = '0px'
-    doms.titles.children[0].classList.add('on')
-    doms.indicator.children[0].children[0].classList.remove('indicator-item')
-    doms.indicator.children[0].children[0].classList.add('on')
-}
 // 组件销毁时销毁定时器
 onUnmounted(() => {
     clearInterval(timer)
@@ -189,9 +57,16 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
+.carousel-body {
+    width: 680px;
+    height: 212px;
+    margin-top: 20px;
+    margin-bottom: 25px;
+}
 .postion-div {
     width: 680px;
     height: 212px;
+    border-radius: 8px;
     position: absolute;
     overflow: hidden;
 }
@@ -224,6 +99,7 @@ onUnmounted(() => {
     color: #fff;
     visibility: hidden;
 }
+/* 动态样式 */
 .titles .on {
     visibility: visible;
 }
@@ -239,6 +115,7 @@ onUnmounted(() => {
     margin-left: 5px;
     display: flex;
 }
+/* 动态样式 */
 .indicator li .indicator-item {
     width: 10px;
     height: 10px;
@@ -251,6 +128,7 @@ onUnmounted(() => {
     background-color: #00AEEC;
     cursor: pointer;
 }
+/* 动态样式 */
 .indicator li .on {
     width: 20px;
     height: 20px;

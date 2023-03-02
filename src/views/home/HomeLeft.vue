@@ -31,8 +31,6 @@ let FatherData = defineProps<{
 
 <style scoped>
 .left-list {
-    background-color: white;
-    border: 1px solid white;
     padding-bottom: 20px;
     border-radius: 8px;
     margin-right: 10px;
@@ -46,6 +44,7 @@ let FatherData = defineProps<{
     text-align: center;
     text-decoration: none;
     color: black;
+    transition: 0.2s;
 }
 .left-list a:hover {
     color: #00AEEC;
