@@ -39,6 +39,7 @@ let leftList = reactive({
 }
 .content {
     width: 680px;
+    margin-right: 40px;
 }
 .right {
     width: 260px;

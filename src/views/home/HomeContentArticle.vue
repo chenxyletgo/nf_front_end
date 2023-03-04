@@ -4,9 +4,9 @@ import { ref, reactive } from 'vue'
 let data = {
     title: '【影视杂谈】如何看待美国影视中的“政治正确”？【影视杂谈】如何看待美国影视中的“政治正确”？',
     desc : '前段时间我写了美剧《最后生还者》（The Last of Us）S1E3的剧评，阅读量颇高，在各个平台收到了许多留言回复，除了表示这集“拍得好”的大量肯定外，剩下最集中的一种声音，便是吐槽、反感乃至抨击该集主角比尔和弗兰克的男同设定了。过了两周，我又写了《最后生还者》E3的剧评，这次反馈量倒是“正常”多了，却依然收到了粗暴认定“都是政治正确”的留言——仅仅因为这集里戏份吃重的配角亨利和山姆两兄弟是黑人',
-    coverImgUrl: 'https://pic.3gbizhi.com/2019/0928/20190928012439343.jpg',
+    coverImgUrl: 'https://pic.3gbizhi.com/2019/0/20190928012439343.jpg',
     avatar: 'https://pic.3gbizhi.com/2019/0928/20190928012439343.jpg',
-    username: '王小名',
+    username: '王小名小名小名小小名',
     tag: '日常',
     view: 0,
     like: 0,
@@ -19,7 +19,7 @@ let data = {
     <div class="article-body">
         <div class="postion-div">
             <div class="article-left">
-                <a href="" class="title">{{ data.title }}</a>
+                <a href="/news" class="title">{{ data.title }}</a>
                 <div class="article-desc-div">
                     <a href="" class="article-desc min-font">
                         {{ data.desc }}

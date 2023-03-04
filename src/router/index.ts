@@ -3,6 +3,9 @@ import Home from '../views/home/Home.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import HomeContent from '../views/home/HomeContent.vue'
+import News from '../views/news/News.vue'
+import Index from '../views/user/Index.vue'
+import IndexUserInfo from '../views/user/IndexUserInfo.vue'
 
 const router = createRouter({
     routes: [
@@ -74,12 +77,12 @@ const router = createRouter({
         {
             name: '用户',
             path: '/user',
-            component: {},
+            component: Index,
             children: [
                 {
                     name: '个人中心',
                     path: 'userInfo',
-                    component: {}
+                    component: IndexUserInfo
                 },
                 {
                     name: '发帖',
@@ -92,6 +95,11 @@ const router = createRouter({
                     component: {}
                 },
             ]
+        },
+        {
+            name: '文章',
+            path: '/news',
+            component: News
         }
     ],
     history: createWebHistory()

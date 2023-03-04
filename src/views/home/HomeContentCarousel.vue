@@ -60,7 +60,6 @@ onUnmounted(() => {
 .carousel-body {
     width: 680px;
     height: 212px;
-    margin-top: 20px;
     margin-bottom: 25px;
 }
 .postion-div {
@@ -92,6 +91,7 @@ onUnmounted(() => {
     background-image: linear-gradient(-180deg,transparent 42%,rgba(0,0,0,.5));
 }
 .titles a {
+    width: 100%;
     position: absolute;
     bottom: 0;
     padding: 40px 10px 5px 10px;

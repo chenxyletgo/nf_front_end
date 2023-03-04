@@ -3,6 +3,7 @@ import { ref, reactive } from 'vue'
 import { useRouter, useRoute} from 'vue-router'
 import HomeContentCarousel from './HomeContentCarousel.vue'
 import HomeContentArticle from './HomeContentArticle.vue'
+import HomeContentCategories from './HomeContentCategories.vue'
 
 </script>
 
@@ -11,6 +12,9 @@ import HomeContentArticle from './HomeContentArticle.vue'
         <div>
             <HomeContentCarousel />
         </div>
+        <!-- <div>
+            <HomeContentCategories />
+        </div> -->
         <div class="partitio-name">
             <label>推荐文章</label>
         </div>
@@ -22,6 +26,9 @@ import HomeContentArticle from './HomeContentArticle.vue'
 </template>
 
 <style scoped>
+.content-body {
+    margin-top: 30px;
+}
 .partitio-name {
     height: 25px;
     font-size: 18px;

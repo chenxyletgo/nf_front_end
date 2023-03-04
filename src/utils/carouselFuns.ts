@@ -101,7 +101,7 @@ function setTimer(doms: DOMs, target: number) {
             curCarouselIndex = 0
             count = 0
         }
-    }, 2000)
+    }, 5000)
 }
 // carousel运动入口
 function carouselFun(){

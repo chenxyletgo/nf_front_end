@@ -44,7 +44,7 @@ watch(route, (newVal, oldVal) => {
                 @select="handleSelect"
                 router
             >
-                <el-menu-item index="/index">首页</el-menu-item>
+                <el-menu-item index="/index/home">首页</el-menu-item>
                 <el-menu-item index="/search">搜索</el-menu-item>
                 <el-menu-item index="/login" v-if="!clientStatus.isLogin">登录</el-menu-item>
                 <el-menu-item index="/register" v-if="!clientStatus.isLogin">注册</el-menu-item>
